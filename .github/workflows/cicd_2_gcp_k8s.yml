@@ -99,8 +99,10 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          ls -la k8s/
-          kubectl apply -f k8s/
+          kubectl apply -f k8s/namespace.yaml
+          kubectl wait --for=condition=Active namespace/backstage --timeout=30s
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
           kubectl set image deployment/backstage \
           backstage=${{ secrets.GKE_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPO }}/${{ env.IMAGE }}:${{ github.sha }} \
           -n backstage
