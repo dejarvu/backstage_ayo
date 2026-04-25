@@ -100,7 +100,6 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f k8s/namespace.yaml
-          kubectl wait --for=condition=Active namespace/backstage --timeout=30s
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
           kubectl set image deployment/backstage \
