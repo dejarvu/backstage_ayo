@@ -99,8 +99,9 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
+          ls -la k8s/
           kubectl apply -f k8s/
           kubectl set image deployment/backstage \
-          backstage=${{ secrets.GKE_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPO }}/${{ env.IMAGE }}:$GITHUB_SHA \
+          backstage=${{ secrets.GKE_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPO }}/${{ env.IMAGE }}:${{ github.sha }} \
           -n backstage
           kubectl get pods -n backstage
