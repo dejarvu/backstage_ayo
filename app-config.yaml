@@ -124,8 +124,10 @@ backend:
   listen:
     port: 7007
     host: 0.0.0.0
-  csp:
-    connect-src: ["'self'", 'http:', 'https:']
+csp:
+  connect-src: ["'self'", 'http:', 'https:']
+  script-src: ["'self'", "'unsafe-eval'"]
+  img-src: ["'self'", 'data:']
   cors:
     origin: http://34.139.139.200
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
